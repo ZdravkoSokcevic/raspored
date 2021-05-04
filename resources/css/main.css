@@ -1,0 +1,40 @@
+@font-face {
+	font-family: 'Roboto-Regular';
+	src: url('/assets/fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+	font-family: 'Roboto-Black';
+	src: url('/assets/fonts/Roboto-Black.ttf');
+}
+body {
+	font-family: Roboto-Regular !important;
+}
+
+/*.nav {
+	position: absolute;
+	width: 200px;
+	float: left;
+	display: flex;
+	flex-direction: column;
+}*/
+
+.content {
+	position: absolute;
+	width: calc(100% - 240px);
+	left: 240px;
+	height: 100%;
+	padding: 10px;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 58px 0 0; /* Height of navbar */
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+  width: 240px;
+  z-index: 600;
+}
