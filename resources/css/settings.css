@@ -1,0 +1,21 @@
+.settings {
+	/*position: absolute;*/
+	/*left: calc(50% + 240px);*/
+	/*top: 50%;*/
+	width: 60%;
+	/*margin-top: 50px;*/
+	margin-bottom: 50px;
+	/*margin-left: calc(50% - 240px);*/
+	/*margin-top: calc(50% - 240px);*/
+}
+.flex {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	/*text-align: center;*/
+	/*border: 1px solid #007bff !important;*/
+}
+
+.settings-title {
+	margin: 10px 0 10px 0;
+}

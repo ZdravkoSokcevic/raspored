@@ -38,3 +38,10 @@ body {
   width: 240px;
   z-index: 600;
 }
+
+@media (max-width: 1000px) {
+	.content {
+		width: 100%;
+		left: 0px;
+	}
+}

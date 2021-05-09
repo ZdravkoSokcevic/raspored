@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('pages.settings');
+    return redirect()->to('/settings');
 });
+
+
+Route::get('/settings', '\App\Http\Controllers\SettingsController@view');
+Route::post('/settings', '\App\Http\Controllers\SettingsController@saveOrUpdate');
 
