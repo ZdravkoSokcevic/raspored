@@ -10,6 +10,11 @@
 	<div class="content">
 		<div class="container">
 			<div class="row">
+			<script type="text/javascript">
+				var csrf = "{{csrf_token()}}";
+				var nesto = "nesto";
+				console.log(csrf);
+			</script>
 				@yield('content')
 			</div>
 		</div>

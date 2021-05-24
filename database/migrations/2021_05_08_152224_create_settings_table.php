@@ -15,7 +15,7 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->time('weekup_time');
+            $table->time('wakeup_time');
             $table->time('bed_time');
             
             // tea 143
@@ -33,6 +33,21 @@ class CreateSettingsTable extends Migration
             // all day
             $table->string('tea_all_day_quantity');
             $table->enum('tea_all_day_quatity_type', ['ml', 'dl', 'l']);
+
+            // tea 143 times
+            $table->string('tea_143_times')->nullable();
+            
+            // tea 11 times
+            $table->string('tea_11_times')->nullable();
+            
+            // tea 55 times
+            $table->string('tea_55_times')->nullable();
+
+            // drops I times
+            $table->string('drops_I_times')->nullable();
+
+            // drops II times
+            $table->string('drops_II_times')->nullable();
 
             $table->timestamps();
         });

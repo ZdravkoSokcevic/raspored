@@ -1,0 +1,31 @@
+.tea-times-container {
+	/*background-color: #fafd2f;*/
+	font-size: 20px;
+	line-height: 14px;
+	/*align-items: center;*/
+	text-align: center;
+}
+
+.tea-times-container label{
+	padding-top: 10px;
+}
+
+.new-time {
+	line-height: 20px;
+	font-size: 20px;
+}
+
+/*PLUS BUTTON*/
+.new-time svg {
+	margin-top: 5px;
+}
+.new-time svg:hover {
+	transform: scale(1.2);
+	transition-duration: 0.7s;
+	cursor: pointer;
+}
+
+/*CHECKBOXES*/
+input[type="checkbox"]:focus {
+	box-shadow: 0 0 0 0px !important;
+}

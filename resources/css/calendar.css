@@ -1,0 +1,62 @@
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+/*.table-fixed tbody {
+    height: 500px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.table-fixed thead,
+.table-fixed tbody,
+.table-fixed tr,
+.table-fixed td,
+.table-fixed th {
+    display: block;
+}
+
+.table-fixed tbody td,
+.table-fixed tbody th,
+.table-fixed thead > tr > th {
+    float: left;
+    position: relative;
+
+    &::after {
+        content: '';
+        clear: both;
+        display: block;
+    }
+}*/
+
+
+table.table-fixed {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+}
+
+table.table-fixed thead {
+    flex: 0 0 auto;
+}
+
+table.table-fixed tbody {
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+table.table-fixed tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+table.table-fixed{
+	height:75vh;
+	overflow:scroll;
+} 

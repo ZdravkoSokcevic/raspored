@@ -19,3 +19,7 @@
 .settings-title {
 	margin: 10px 0 10px 0;
 }
+
+.form-group label.form-label {
+	font-size: 19px;
+}

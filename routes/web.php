@@ -22,3 +22,6 @@ Route::get('/', function () {
 Route::get('/settings', '\App\Http\Controllers\SettingsController@view');
 Route::post('/settings', '\App\Http\Controllers\SettingsController@saveOrUpdate');
 
+Route::get('/calendar', '\App\Http\Controllers\CalendarController@display');
+Route::post('/calendar', '\App\Http\Controllers\CalendarController@update');
+

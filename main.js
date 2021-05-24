@@ -60,14 +60,14 @@ function createWindow() {
     mainWindow = null;
   })
 
-	globalShortcut.register('f5', function() {
-		console.log('f5 is pressed')
-		mainWindow.reload()
-	})
-	globalShortcut.register('CommandOrControl+R', function() {
-		console.log('CommandOrControl+R is pressed')
-		mainWindow.reload()
-	})
+	// globalShortcut.register('f5', function() {
+	// 	console.log('f5 is pressed')
+	// 	mainWindow.reload()
+	// })
+	// globalShortcut.register('Shift+R', function() {
+	// 	console.log('CommandOrControl+shift+R is pressed')
+	// 	// mainWindow.reload()
+	// })
 }
 
 // This method will be called when Electron has finished
