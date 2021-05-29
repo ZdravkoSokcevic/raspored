@@ -60,3 +60,10 @@ table.table-fixed{
 	height:75vh;
 	overflow:scroll;
 } 
+
+.time-span {
+    position: absolute; 
+    margin-right: 65px; 
+    right: 0; 
+    top: 40px;
+}

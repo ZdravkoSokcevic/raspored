@@ -17,7 +17,7 @@ class CreateCalendarsTable extends Migration
             $table->id();
 
             $table->date('date');
-            $table->enum('tea', ['143', '11', '55']);
+            $table->enum('tea', ['143', '11', '55', 'I', 'II']);
             $table->string('time', 5);
             $table->boolean('used')->default(0);
             $table->timestamps();
