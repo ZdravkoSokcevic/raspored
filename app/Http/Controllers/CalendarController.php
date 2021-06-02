@@ -206,4 +206,23 @@ class CalendarController extends Controller
         }
         return $times;
     }
+
+    public function check(Request $r)
+    {
+        $now = Carbon::now();
+        $hour_before = $now->addMinutes(-80);
+        $calendars = Calendar::where(function($q)use($now, $hour_before) {
+            $before = $hour_before;
+            $before->setHours(0)->setMinutes(0);
+            $q->where(function($q) use ($now, $hour_before) {
+                $q->whereDate('date', $now)->where('time', '>', $hour_before)->where('time', '<', $now);
+                return $q;
+            })->orWhere(function($q) use ($now, $hour_before) {
+              $q->whereDate('date', $hour_before)->where('time', '>', $hour_before)->where('time', '<', $now);
+              return $q;  
+            });
+            return $q;
+            })->get();
+        dd($calendars);
+    }
 }

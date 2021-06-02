@@ -1,62 +1,61 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# App is written in Laravel v8.12 framework
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Requirements To run this app:
 
-## About Laravel
+* php >= 7.3 | php 8.0
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* BCMath PHP Extension
+* Ctype PHP Extension
+* JSON PHP Extension
+* Mbstring PHP Extension
+* OpenSSL PHP Extension
+* PDO PHP Extension
+* Tokenizer PHP Extension
+* XML PHP Extension
+* GD Library >=2.0 or Imagick PHP extension >=6.5.7
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Packages used for backend:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* fideloper/proxy
+* fruitcake/laravel-cors
+* laravel/sail
+* nunomaduro/collision
 
-## Learning Laravel
+## Frontend libraries
+* [Font-Awesome v5.12.0](https://fontawesome.com)
+* [jQuery v3.4.1](https://jquery.com)
+* [jQuery scrollTo](https://github.com/flesler/jquery.scrollTo)
+* [Moment js v2.29](https://momentjs.com)
+* [bootstrap-timepicker v0.5.2 ](https://mdbootstrap.com/docs/b4/jquery/forms/time-picker1/)
+* [Bootstrap v4.6.0](https://getbootstrap.com)
+* [Chart.js](https://www.chartjs.org)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## For properly run app you need:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+* Go to root of app
+* Run `$which(php) composer.phar install` or `composer install`
+* Run `$which(php) artisan key:generate`
+* Run `cp .env.example .env`
+* Run `npm i` or `npm install`
+* In env you need to setup:
+	* `APP_NAME` possible values `DM_SRBIJA` or `DM_BIH`
+	* `APP_URL` is domain (path) to your app
+	* `APP_LOCALE` possible values `bih` or `sr`
+	* `DB_DATABASE` name of your database
+	* `DB_USERNAME` your mysql client user
+	* `DB_PASSWORD` your mysql client password
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* For Dev Run `$which(php) artisan migrate` to run app migrations and make tables
+* If you wann'a to fill tables go to `database/seeds/DatabaseSeeder.php` file and uncomment lines for specific tables which you wan't to fill and then run `$which(php) artisan db:seed` from root of your project
+* Run App:
+	* Add propietary permissions for your app
+	* Go to root of your project
+	* Run `sudo chown $(id -u):$(id -g) -R .` in case if you run your app on internal php cli server
+	* Run `sudo chown $(id -u):www-data -R .` in case if you run your app on Nginx/Fpm or Apache2 server
+	* Run `chmod 755 -R .` to change permissions for your app
+	* Link storage
+		* Run `$which(php) artisan storage:link` or
+		* Run `cd ./public && ln -s ../storage/app/public ./storage`
+		* If you are in public folder run `ln -s ../resources ./src` to link resources folder in public path
+	* If you run internal server go to root of your project and then run `php artisan serve` and internal cli server goes listening on `127.0.0.1:8000`
+	* To run desktop app install gulp with `npm i --global gulp` and then run `gulp`

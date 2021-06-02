@@ -8,6 +8,7 @@
   $day_after = $date->addDays(1); 
   $now = Carbon\CarbonImmutable::now();
   $in_half_hour = $now->addMinutes(30);
+  // dd($now, $in_half_hour);
 @endphp
 
 @section('content')
@@ -53,6 +54,7 @@
 		if(is_null($time))
 		  continue;
 		// carbon time
+		// dd($time,$date);
 		$ct = $settings->getCarbonTimeFromTime($time, $date);
 		// dd($ct->format('m'));
 		// dd([
@@ -69,6 +71,18 @@
 		//   'hour' => $hour,
 		//   'minute' => $minute 
 		// ]);
+		// if((int)$hour > 12)
+		$ct->hour = $hour;
+		$ct->minute = $minute;
+		// if($now->gt($ct))
+		// {
+		// 	dd([
+		// 		'ct_now' => $ct,
+		// 		'now' => $now,
+		// 		'hour' => $ct->format('H'),
+		// 		'in_half_hour' => $in_half_hour
+		// 	]);
+		// }
 	  @endphp
 	  <tr
 		  @if($ct->gt($now) && $ct->lt($in_half_hour))
@@ -78,7 +92,7 @@
 			style="font-weight: 800 !important; color:white;"
 		  @elseif((int)$now->format('H') == 23 && (int)$now->format('i') >= 30 && $hour == 23 && $minute == 30)
 				style="font-weight: 800 !important"
-			id="current-time"
+				id="current-time"
 		  @endif
 	  >
 		<th 

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function(){
 		$('#' + element.getAttribute('id'))[0].scrollIntoView();
 
 	setInterval(() => {
-		// refreshPageIfNeeded();
-		// markAsUndrinked();
-	}, 10000)
+		refreshPageIfNeeded();
+		markAsUndrinked();
+	}, 100000)
 })

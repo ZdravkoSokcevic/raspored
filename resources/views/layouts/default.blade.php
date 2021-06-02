@@ -20,6 +20,7 @@
 		</div>
 	</div>
 
+	@include('includes.toast')
 	@include('includes.footer')
 	@yield('scripts')
 </body>
