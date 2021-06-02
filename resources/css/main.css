@@ -39,6 +39,10 @@ body {
   z-index: 600;
 }
 
+.flex {
+	display: flex;
+}
+
 @media (max-width: 1000px) {
 	.content {
 		width: 100%;

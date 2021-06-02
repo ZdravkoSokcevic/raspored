@@ -61,9 +61,19 @@ table.table-fixed{
 	overflow:scroll;
 } 
 
+.title-and-time-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .time-span {
-    position: absolute; 
+   /* position: absolute; 
     margin-right: 65px; 
     right: 0; 
-    top: 40px;
+    top: 40px;*/
+}
+
+.date-change:hover {
+    cursor: pointer;
 }

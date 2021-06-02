@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 
 class Settings extends Model
 {
@@ -57,14 +58,30 @@ class Settings extends Model
     {
         return explode(',', $this->drops_II_times);
     }
-
-    public function getCarbonTimeFromTime($t)
+    /**
+     *  @param $t|string
+     *  @param $date CarbonImmutable|null
+     *  @return Carbon
+     *
+     * if date is null then this is for current day
+     *  otherwise we must make datetime from $t and $date
+     * 
+    */
+    public function getCarbonTimeFromTime($t, $date = null)
     {
         if(is_null($t))
             return Carbon::now();
 
         list($hours,$minutes) = explode(':', $t);
-        $time = Carbon::createFromTime($hours, $minutes, 0);
+        if($date == null)
+            $time = Carbon::createFromTime($hours, $minutes, 0);
+        else {
+            $time = Carbon::parse($date);
+            $time->setHours("11");
+            $time->setMinutes((int)$minutes);
+            // dd(['time'=>'tim', $time]);
+        }
         return $time;
     }
 }
+?>

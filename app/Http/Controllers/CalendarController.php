@@ -10,7 +10,7 @@ use App\Models\Calendar;
 
 class CalendarController extends Controller
 {
-    public function display(Request $r)
+    public function display(Request $r, $date = null)
     {
     	$settings = Settings::first();
         if(is_null($settings)) {
@@ -22,7 +22,7 @@ class CalendarController extends Controller
         $drops_I_times = !is_null($settings)? $settings->getDropsITimes() : [];
         $drops_II_times = !is_null($settings)? $settings->getDropsIITimes() : [];
 
-    	$date = $r->filled('date')? Carbon::create($r->date) : Carbon::now();
+    	$date = $r->filled('date')? CarbonImmutable::create($r->date) : CarbonImmutable::now();
         // dd($calendar->get());
         // $calendar = Calendar::where('date', $date->format('Y-m-d'))->get();
         // dd($calendar);
@@ -50,7 +50,7 @@ class CalendarController extends Controller
     		$calendar = new Calendar;
     	return view('pages.calendar', [
     		'active'=>'calendar',
-    		'date' => Carbon::now(),
+    		'date' => $date,
     		'times' => $this->getAllTeaTimeRanges(),
     		'settings' => $settings,
     		'calendar' => $calendar,
@@ -99,6 +99,47 @@ class CalendarController extends Controller
             'success' => 'true',
             'message' => 'Data saved sucessifully',
             'calendar' => $calendar
+        ]);
+    }
+
+    public function delete(Request $r)
+    {
+        $errors = [];
+        if(!$this->validateR($r, $errors))
+            return response()->json([
+                'success' => 'false',
+                'message' => 'Validation error',
+                'errors' => [
+
+                ]
+            ]);
+
+        $date = Carbon::parse($r->date);
+        $calendar = Calendar::where([
+            'tea' => $r->tea,
+            'date' => $date,
+            'time' => $r->time
+        ])->first();
+
+        if($calendar == null) 
+        {
+            return response()->json([
+                'success' => 'false',
+                'message' => 'Record not found'
+            ]);
+        }
+
+        if(!$calendar->delete()) 
+        {
+            return response()->json([
+                'success' => 'false',
+                'message' => 'Cannot delete record' 
+            ]);
+        }
+
+        return response()->json([
+            'success' => 'true',
+            'message' => 'Data saved!'
         ]);
     }
 

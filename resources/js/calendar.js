@@ -15,11 +15,12 @@ const markAsUndrinked = () => {
 
 document.addEventListener('DOMContentLoaded', function(){
 	let element = document.getElementById('current-time');
+	console.log(element);
 	if(element)
 		$('#' + element.getAttribute('id'))[0].scrollIntoView();
 
 	setInterval(() => {
-		refreshPageIfNeeded();
-		markAsUndrinked();
+		// refreshPageIfNeeded();
+		// markAsUndrinked();
 	}, 10000)
 })
