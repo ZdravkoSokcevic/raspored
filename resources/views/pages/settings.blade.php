@@ -20,6 +20,17 @@
 		<div class="form-outline">
 			<h2 class="settings-title text-primary">Podesavanja</h2>
 		</div>
+
+	  	{{-- Wake Up Time input --}}
+	  	<div class="form-group custom-form custom-switch">
+			<input 
+				type="checkbox" 
+				class="custom-control-input" 
+				id="notifiactions"
+				onclick="toggleNotificationsOnOff(this)"
+			>
+	  		<label class="custom-control-label" for="notifiactions">Notifikacije</label>
+	  	</div>
 	  <!-- Week up time input -->
 	  <div class="form-outline input-group mb-2">
 
@@ -350,6 +361,7 @@
 @section('scripts')
 	<script type="text/javascript" src="/js/jquery.timepicker.min.js"></script>
 	<script type="text/javascript">
+		checkIfNotificationsEnabled();
 		$('input#wakeup_time').timepicker({});
 		// $('input#bed_time').timepicker({});
 	    $('input#bed_time').timepicker({});

@@ -1,7 +1,5 @@
-console.log('##NOTIFY##');
-console.log(Notification.permission);
 // request permission on page load
-document.addEventListener('DOMContentLoaded', function() {
+const registerNotifications = () => {
 	if (!Notification) {
 		alert('Desktop notifications not available in your browser. Try Chromium.');
 		return;
@@ -9,44 +7,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	if (Notification.permission !== 'granted')
 		Notification.requestPermission();
-	else
-		notifyMe();
-});
-
-const showNotification = (title, body, icon=false) => {
-	if(icon == false)
-		icon = '/favicon.ico';
-
-	var notification = new Notification(title, {
-		icon: icon,
-		body: body,
-	});
-	notification.onclick = function() {
-		// window.open('http://stackoverflow.com/a/13328397/1269037');
-	};
+	// else
+		// notifyMe();
 }
 
-const getInfoFromApi = () => {
-	$.ajax({
-		url: '/calendar/check',
-		type: 'GET',
-		dataType: 'json',
-		data: {},
-	})
-	.done(function(data) {
-		console.log(data);
-	})
-	.fail(function() {
-		displayToast('Greska na serveru', 'Prije 26 sekundi', 'Server je vratio gresku 500');
-	})
-	
-}
+const showNotification = async(title, body, icon=false) => {
+	let enabled = await(localStorage.getItem('notifications'));
+	if(enabled == 'enabled')
+	{
+		if(icon == false)
+			icon = '/favicon.ico';
 
-
-function notifyMe() {
-	if (Notification.permission !== 'granted')
-		Notification.requestPermission();
-	else {
-		displayToast('Greska na serveru', 'Prije 26 sekundi', '<B>Server je vratio gresku 500, probajte opet kasnije</B><br>');
+		var notification = new Notification(title, {
+			icon: icon,
+			body: body,
+		});
+		notification.onclick = function() {
+			// Notification click here
+		};
 	}
+}
+
+const toggleNotificationsOnOff = (el) => {
+	let enabled = el.checked;
+	let notifications = enabled? 'enabled' : 'disabled';
+	localStorage.setItem('notifications', notifications);
+}
+
+const checkIfNotificationsEnabled = () => {
+	let el = document.getElementById('notifiactions');
+	console.log('checkIfNotificationsEnabled');
+	let notificationsEnabled = localStorage.getItem('notifications');
+	notificationsEnabled = (notificationsEnabled && notificationsEnabled == 'enabled')? true:false;
+	if(notificationsEnabled)
+		el.setAttribute('checked', 'checked');
+	else el.removeAttibute('checked');
 }

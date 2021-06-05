@@ -29,6 +29,8 @@
 * [bootstrap-timepicker v0.5.2 ](https://mdbootstrap.com/docs/b4/jquery/forms/time-picker1/)
 * [Bootstrap v4.6.0](https://getbootstrap.com)
 * [Chart.js](https://www.chartjs.org)
+* [Toastr](https://github.com/CodeSeven/toastr)
+
 
 ## For properly run app you need:
 

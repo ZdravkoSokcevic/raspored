@@ -23,15 +23,10 @@ class CalendarController extends Controller
         $drops_II_times = !is_null($settings)? $settings->getDropsIITimes() : [];
 
     	$date = $r->filled('date')? CarbonImmutable::create($r->date) : CarbonImmutable::now();
-        // dd($calendar->get());
-        // $calendar = Calendar::where('date', $date->format('Y-m-d'))->get();
-        // dd($calendar);
-        // dd(Calendar::all(), $date->format('Y-m-d'));
 
     	$calendar_143 = Calendar::where('date', $date->format('Y-m-d'))
             ->where('tea', '143')
             ->get();
-        // dd($calendar_143);
     	$calendar_11 = Calendar::where('date', $date->format('Y-m-d'))
             ->where('tea', '11')
             ->get();
@@ -151,10 +146,7 @@ class CalendarController extends Controller
             $data['used'] = false;
 
         $time = Carbon::parse($r->date);
-        $ct = CarbonImmutable::now();
-        $ct->setHours($time->format('H'));
-        $ct->setMinutes($time->format('i'));
-        $data['date'] = $ct;
+        $data['date'] = $time;
         $r->replace($data);
     }
 
@@ -210,19 +202,107 @@ class CalendarController extends Controller
     public function check(Request $r)
     {
         $now = Carbon::now();
-        $hour_before = $now->addMinutes(-80);
-        $calendars = Calendar::where(function($q)use($now, $hour_before) {
-            $before = $hour_before;
-            $before->setHours(0)->setMinutes(0);
-            $q->where(function($q) use ($now, $hour_before) {
-                $q->whereDate('date', $now)->where('time', '>', $hour_before)->where('time', '<', $now);
-                return $q;
-            })->orWhere(function($q) use ($now, $hour_before) {
-              $q->whereDate('date', $hour_before)->where('time', '>', $hour_before)->where('time', '<', $now);
-              return $q;  
-            });
-            return $q;
-            })->get();
-        dd($calendars);
+
+        // ToDo use times from settings
+        $settings = Settings::first();
+        if(is_null($settings))
+            return response()->json([
+                'success' => 'true',
+                'message' => 'Empty settings',
+                'data' => []
+            ]);
+
+        $tea_143_times = $settings->getTea143Times();
+        $tea_11_times = $settings->getTea11Times();
+        $tea_55_times = $settings->getTea55Times();
+        $drops_I_times = $settings->getDropsITimes();
+        $drops_II_times = $settings->getDropsIITimes();
+
+        $unused = [
+            'tea_143'   => [],
+            'tea_11'    => [],
+            'tea_55'    => [],
+            'drops_I'   => [],
+            'drops_II'  => []
+        ];
+        foreach($tea_143_times as $time) {
+            $ref_time = Carbon::now();
+            list($hour, $minute) = explode(':', $time);
+            $ref_time->setHours($hour);
+            $ref_time->setMinutes($minute);
+            if($ref_time->gt($now))
+                continue;
+            $exists = Calendar::where('tea', '143')
+                ->where('date', $now->format('Y-m-d'))
+                ->where('time', trim($time))
+                ->get();
+            if(!$exists || $exists->count() == 0)
+                $unused['tea_143'][] = $time;
+        }
+
+        foreach ($tea_11_times as $time) {
+            $ref_time = Carbon::now();
+            list($hour, $minute) = explode(':', $time);
+            $ref_time->setHours($hour);
+            $ref_time->setMinutes($minute);
+            if($ref_time->gt($now))
+                continue;
+            $exists = Calendar::where('tea', '11')
+                ->where('date', $now->format('Y-m-d'))
+                ->where('time', trim($time))
+                ->get();
+            if(!$exists || $exists->count() == 0)
+                $unused['tea_11'][] = $time;
+        }
+
+        foreach ($tea_55_times as $time) {
+            $ref_time = Carbon::now();
+            list($hour, $minute) = explode(':', $time);
+            $ref_time->setHours($hour);
+            $ref_time->setMinutes($minute);
+            if($ref_time->gt($now))
+                continue;
+            $exists = Calendar::where('tea', '55')
+                ->where('date', $now->format('Y-m-d'))
+                ->where('time', trim($time))
+                ->get();
+            if(!$exists || $exists->count() == 0)
+                $unused['tea_55'][] = $time;
+        }
+
+        foreach ($drops_I_times as $time) {
+            $ref_time = Carbon::now();
+            list($hour, $minute) = explode(':', $time);
+            $ref_time->setHours($hour);
+            $ref_time->setMinutes($minute);
+            if($ref_time->gt($now))
+                continue;
+            $exists = Calendar::where('tea', 'I')
+                ->where('date', $now->format('Y-m-d'))
+                ->where('time', trim($time))
+                ->get();
+            if(!$exists || $exists->count() == 0)
+                $unused['drops_I'][] = $time;
+        }
+
+        foreach ($drops_II_times as $time) {
+            $ref_time = Carbon::now();
+            list($hour, $minute) = explode(':', $time);
+            $ref_time->setHours($hour);
+            $ref_time->setMinutes($minute);
+            if($ref_time->gt($now))
+                continue;
+            $exists = Calendar::where('tea', 'II')
+                ->where('date', $now->format('Y-m-d'))
+                ->where('time', trim($time))
+                ->get();
+            if(!$exists || $exists->count() == 0)
+                $unused['drops_II'][] = $time;
+        }
+
+        return response()->json([
+            'success'   => true,
+            'data'      => $unused
+        ]);
     }
 }

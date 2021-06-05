@@ -85,8 +85,6 @@ class SettingsController extends Controller
     	$bed_time = Carbon::create($r->bed_time);
     	$data['bed_time'] = $bed_time;
 
-        // dd($r->all());
-
         //Tea 143 times
         if($r->filled('tea_143_times')) 
             $data['tea_143_times'] = implode(',', $r->tea_143_times);
@@ -110,12 +108,6 @@ class SettingsController extends Controller
 
     public function convertToMl($qty, $measure)
     {
-    	// dd([
-    	// 	'number' => $qty,
-    	// 	'measure' => $measure,
-    	// 	'is_numeric' => is_numeric($qty),
-    	// 	'float_val' => (float) $qty
-    	// ]);
     	if(!is_numeric($qty))
     		return false;
 

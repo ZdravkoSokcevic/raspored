@@ -58,29 +58,24 @@ const calendarDeleteApi = (element, data, modal) => {
 	console.log('tu si');
 	if(!isRequestInProcess)
 	{
-		// let id = element.getAttribute('data-id');
-		// if(!id)
-		// 	return;
-		// else {
-			isRequestInProcess = true;
-			$.ajax({
-				url: '/calendar',
-				type: 'DELETE',
-				dataType: 'json',
-				data: data,
-				success: function(response) {
-					if(Response && response.success && response.success == 'true') {
-						element.innerHTML = unusedTeaElement;
-						element.setAttribute('data-used-status', 2);
-						modal.modal('hide');
-					}
-					isRequestInProcess = false;
+		isRequestInProcess = true;
+		$.ajax({
+			url: '/calendar',
+			type: 'DELETE',
+			dataType: 'json',
+			data: data,
+			success: function(response) {
+				if(Response && response.success && response.success == 'true') {
+					element.innerHTML = unusedTeaElement;
+					element.setAttribute('data-used-status', 2);
+					modal.modal('hide');
 				}
-			})
-			.fail(function() {
-				console.log("error");
-			})
-		// }
+				isRequestInProcess = false;
+			}
+		})
+		.fail(function() {
+			console.log("error");
+		})
 		
 	}else {
 		setTimeout(calendarDeleteApi(element, data, modal), 250);

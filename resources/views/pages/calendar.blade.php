@@ -8,7 +8,6 @@
   $day_after = $date->addDays(1); 
   $now = Carbon\CarbonImmutable::now();
   $in_half_hour = $now->addMinutes(30);
-  // dd($now, $in_half_hour);
 @endphp
 
 @section('content')
@@ -50,39 +49,15 @@
   <tbody>
 	@foreach($times as $time)
 	  @php
-	  // dd($settings);
-		if(is_null($time))
-		  continue;
-		// carbon time
-		// dd($time,$date);
-		$ct = $settings->getCarbonTimeFromTime($time, $date);
-		// dd($ct->format('m'));
-		// dd([
-		//   'now' => $now->format('d.m.Y H:i'),
-		//   'in_half_hour' => $in_half_hour->format('d.m.Y H:i'),
-		//   'current_time' => $ct->format('d.m.Y H:i')
-		// ]);
-		list($hour, $minute) = explode(':', $time);
-		$hour = (int) $hour;
-		$minute = (int) $minute;
-		// dd([
-		//   'format h current time' => $now->format('H'),
-		//   'format m current time' => $now->format('i'),
-		//   'hour' => $hour,
-		//   'minute' => $minute 
-		// ]);
-		// if((int)$hour > 12)
-		$ct->hour = $hour;
-		$ct->minute = $minute;
-		// if($now->gt($ct))
-		// {
-		// 	dd([
-		// 		'ct_now' => $ct,
-		// 		'now' => $now,
-		// 		'hour' => $ct->format('H'),
-		// 		'in_half_hour' => $in_half_hour
-		// 	]);
-		// }
+			if(is_null($time))
+			  continue;
+			// carbon time
+			$ct = $settings->getCarbonTimeFromTime($time, $date);
+			list($hour, $minute) = explode(':', $time);
+			$hour = (int) $hour;
+			$minute = (int) $minute;
+			$ct->hour = $hour;
+			$ct->minute = $minute;
 	  @endphp
 	  <tr
 		  @if($ct->gt($now) && $ct->lt($in_half_hour))
@@ -102,10 +77,6 @@
 		  {{$time}}
 		</th>
 		@if(in_array($time, $tea_143_times))
-		{{-- @if($hour > 8)
-		  @dd($hour, $minute, $ct)
-		  @dd($now, $ct, $now->gt($ct))
-		@endif --}}
 		  <td 
 			data-time="{{$time}}" 
 			data-tea="143" 

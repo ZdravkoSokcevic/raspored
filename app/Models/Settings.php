@@ -79,7 +79,6 @@ class Settings extends Model
             $time = Carbon::parse($date);
             $time->setHours("11");
             $time->setMinutes((int)$minutes);
-            // dd(['time'=>'tim', $time]);
         }
         return $time;
     }
